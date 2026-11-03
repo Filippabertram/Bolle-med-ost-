@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bollebarometeret – Frederiksberg</title>
+
+    <link rel="stylesheet" href="main.css">
+
+    <!-- Chart.js laver vores diagrammer -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Papa Parse indlæser vores Excel-data som CSV -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+</head>
+
+<body>
+
+<!-- Navigation -->
+<header class="site-header">
+    <a class="logo" href="#top">BOLLEBAROMETERET</a>
+
+    <nav aria-label="Hovednavigation">
+        <a href="#undersogelse">Undersøgelsen</a>
+        <a href="#data">Data</a>
+        <a href="#pivottabel">Pivottabel</a>
+        <a href="#konklusion">Konklusion</a>
+    </nav>
+</header>
+
+<main id="top">
+
+    <!-- Hero -->
+    <section class="hero" id="undersogelse">
+
+        <div class="hero-copy">
+            <p class="eyebrow">EN DATAUNDERSØGELSE · FREDERIKSBERG</p>
+
+            <h1>Boller med ost<br>på Frederiksberg</h1>
+
+            <p class="intro">
+                Vi har undersøgt bagerier og caféer på Frederiksberg
+                for at se, hvordan deres boller med ost klarer sig
+                på pris og bedømmelse.
+            </p>
+
+            <a class="button" href="#data">
+                Se resultater ↓
+            </a>
+        </div>
+
+        <div class="hero-image-wrap">
+            <img
+                    src="standard_BMO-kopi.jpg"
+                    alt="Bolle med ost fra vores undersøgelse"
+                    class="hero-image"
+            >
+        </div>
+
+    </section>
+
+    <!-- Nøgletal -->
+    <section class="statistics">
+
+        <div class="stat">
+            <strong id="placesCount">–</strong>
+            <span>steder undersøgt</span>
+        </div>
+
+        <div class="stat">
+            <strong id="averagePrice">–</strong>
+            <span>gennemsnitspris</span>
+        </div>
+
+        <div class="stat">
+            <strong id="averageScore">–</strong>
+            <span>gennemsnitlig BMO-score</span>
+        </div>
+
+    </section>
+
+    <!-- Diagrammer -->
+    <section class="data-section" id="data">
+
+        <div class="section-heading">
+            <p class="eyebrow">UNDERSØGELSENS RESULTATER</p>
+            <h2>Hvad fortæller tallene?</h2>
+
+            <p>
+                Vi sammenligner pris og samlet BMO-bedømmelse
+                for de undersøgte steder.
+            </p>
+        </div>
+
+        <div class="charts-grid">
+
+            <article class="chart-card">
+                <h3>Pris på bolle med ost</h3>
+
+                <p class="chart-description">
+                    Pris i kroner. Steder uden registreret pris
+                    er ikke med i diagrammet.
+                </p>
+
+                <div class="canvas-wrap">
+                    <canvas
+                            id="priceChart"
+                            role="img"
+                            aria-label="Søjlediagram over priser"
+                    ></canvas>
+                </div>
+            </article>
+
+            <article class="chart-card">
+                <h3>Bedømmelse af BMO</h3>
+
+                <p class="chart-description">
+                    Samlet BMO-score for hvert sted.
+                </p>
+
+                <div class="canvas-wrap">
+                    <canvas
+                            id="scoreChart"
+                            role="img"
+                            aria-label="Søjlediagram over BMO-bedømmelser"
+                    ></canvas>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- Pivottabel -->
+    <section class="pivot-section" id="pivottabel">
+
+        <p class="eyebrow">DATA OPDELT I KATEGORIER</p>
+
+        <h2>Pivottabel – ostetype</h2>
+
+        <p class="section-intro">
+            Tabellen grupperer stederne efter ostetype og viser
+            antal steder, gennemsnitlig BMO-score og gennemsnitspris.
+        </p>
+
+        <div class="table-scroll">
+            <table>
+                <caption class="sr-only">
+                    Pivottabel grupperet efter ostetype
+                </caption>
+
+                <thead>
+                <tr>
+                    <th scope="col">Ostype</th>
+                    <th scope="col">Antal steder</th>
+                    <th scope="col">Gns. BMO-score</th>
+                    <th scope="col">Gns. pris</th>
+                </tr>
+                </thead>
+
+                <tbody id="pivotTable">
+                <tr>
+                    <td colspan="4">Indlæser data ...</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+    <!-- Alle undersøgte steder -->
+    <section class="places-section">
+
+        <p class="eyebrow">ALLE REGISTRERINGER</p>
+
+        <h2>De undersøgte steder</h2>
+
+        <p class="section-intro">
+            Her kan du se de enkelte steder, deres priser,
+            bedømmelser og ostetyper.
+        </p>
+
+        <div class="table-scroll">
+            <table>
+                <caption class="sr-only">
+                    Alle undersøgte steder på Frederiksberg
+                </caption>
+
+                <thead>
+                <tr>
+                    <th scope="col">Bageri / café</th>
+                    <th scope="col">Pris</th>
+                    <th scope="col">BMO-score</th>
+                    <th scope="col">Ostype</th>
+                    <th scope="col">Anmeldelse</th>
+                </tr>
+                </thead>
+
+                <tbody id="placesTable">
+                <tr>
+                    <td colspan="5">Indlæser data ...</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+    <!-- Konklusion -->
+    <section class="conclusion" id="konklusion">
+
+        <div>
+            <p class="eyebrow">UNDERSØGELSENS KONKLUSION</p>
+            <h2>Konklusion</h2>
+        </div>
+
+        <p id="conclusionText">
+            Konklusionen bliver opdateret, når dataene er indlæst.
+        </p>
+
+    </section>
+
+</main>
+
+<!-- Footer -->
+<footer>
+    <p>BOLLEBAROMETERET · FREDERIKSBERG</p>
+</footer>
+
+<!-- JavaScript -->
+<script src="script.js"></script>
+
+</body>
+</html>
+
+
